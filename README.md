@@ -44,7 +44,7 @@ A command-line Java application for managing student records and grades, backed 
 ### Clone the repository
 
 ```bash
-git clone https://github.com/<your-username>/student-grade-management.git
+git clone https://github.com/plamen-penkov/student-grade-management.git
 cd student-grade-management
 ```
 
@@ -94,7 +94,7 @@ Enter a student id(1 - 1): 1
 4: PHYSICS
 5: CHEMISTRY
 6: BIOLOGY
-Enter subject name: 2
+Enter subject id: 2
 Enter grade score: 5.50
 MATHEMATICS grade was added successfully to John Doe.
 ```

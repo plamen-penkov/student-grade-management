@@ -139,7 +139,7 @@ void addStudentGrade() {
         }
 
         printSubjects();
-        System.out.print("Enter subject name: ");
+        System.out.print("Enter subject id: ");
         int subjectId = Integer.parseInt(scanner.nextLine());
         if (subjectId > subjects.length) {
             System.out.println("Invalid subject id!");

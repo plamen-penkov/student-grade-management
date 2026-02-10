@@ -5,27 +5,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Student {
-    public static int studentCount = 0;
     private final int id;
     private final String firstName;
     private final String lastName;
-    private final List<Grade> grades;
 
     public Student(String firstName, String lastName) {
-        studentCount++;
-        this.id = studentCount;
+        this.id = 0;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.grades = new ArrayList<>();
     }
     private Student(int id, String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.grades = new ArrayList<>();
     }
 
     public int getId() {
@@ -40,25 +34,22 @@ public class Student {
         return lastName;
     }
 
-    public List<Grade> getGrades() {
-        return grades;
-    }
+    public float getGradeAverage(Connection connection) throws SQLException {
+        String sql = "SELECT grade_score FROM grades WHERE student_id = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, this.id);
 
-    public float gradeAverage() {
-        if (grades.isEmpty()) return 0f;
 
-        float sum = 0;
-        int count = 0;
-        for (Grade grade: grades) {
-            sum += grade.getGrade();
-            count++;
+        ResultSet resultSet = statement.executeQuery();
+        float score = 0;
+        int gradeCount = 0;
+        while (resultSet.next()) {
+            score += resultSet.getFloat("grade_score");
+            gradeCount++;
         }
-        return sum / count;
+        return score / gradeCount;
     }
-    public void addGrade(Grade grade) {
-        grades.add(grade);
-        System.out.printf("Grade added successfully to student with ID %d", this.id);
-    }
+
     public static Student create(String firstName, String lastName, Connection connection) throws SQLException {
         Student student = new Student(firstName, lastName);
         String sql = "INSERT INTO students(first_name, last_name) VALUES(?, ?);";

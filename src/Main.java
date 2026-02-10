@@ -66,7 +66,7 @@ void addStudent() {
     String lastName = scanner.nextLine();
     try {
         Student student = Student.create(firstName, lastName, conn);
-        System.out.printf("Student %s %s was successfully added", student.getFirstName(), student.getLastName());
+        System.out.printf("Student %s %s was successfully added\n", student.getFirstName(), student.getLastName());
     } catch (SQLException e) {
         System.out.println("An error occurred.");
         System.out.println(e.getMessage());
@@ -80,8 +80,7 @@ void printStudents() {
             System.out.println("There are no students in the system.");
         }
         for(Student student: students) {
-            System.out.printf("%d: %s %s", student.getId(), student.getFirstName(), student.getLastName());
-            System.out.println();
+            System.out.printf("%d: %s %s\n", student.getId(), student.getFirstName(), student.getLastName());
         }
     } catch (SQLException e) {
         System.out.println("An error occurred.");
@@ -105,7 +104,7 @@ void printStudentGrades() {
         }
 
         for(Grade grade: studentGrades) {
-            System.out.printf("%s: %.2f%n", grade.getSubject(), grade.getGrade());
+            System.out.printf("%s: %.2f%n\n", grade.getSubject(), grade.getGrade());
         }
     } catch (SQLException e) {
         System.out.println("An error occurred.");
